@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -18,6 +20,14 @@ namespace ProjektASP.Models
         }
     }
 
+    public string Name { get; set; }
+    [Required]
+    public string Surrname { get; set; }
+
+    public int AddressId { get; set; }
+
+    public virtual AddressModel Address { get; set; }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -30,10 +40,13 @@ namespace ProjektASP.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ProjektASP.Models.Product> Products { get; set; }
+        public DbSet<AddressModel> Addresses { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        public System.Data.Entity.DbSet<ProjektASP.Models.Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-        public System.Data.Entity.DbSet<ProjektASP.Models.Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<AddressModels> AddressModels { get; set; }
     }
 }

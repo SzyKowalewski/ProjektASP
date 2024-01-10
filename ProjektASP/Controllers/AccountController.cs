@@ -17,6 +17,7 @@ namespace ProjektASP.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -50,6 +51,18 @@ namespace ProjektASP.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        // Akcja Authorize jest punktem końcowym wywoływanym w przypadku uzyskania dostępu do
+        // chronionego interfejsu Web API. Jeśli użytkownik nie jest zalogowany, zostanie przekierowany do 
+        // strony Login. Po pomyślnym zalogowaniu można wywołać interfejs Web API.
+        [HttpGet]
+        public ActionResult Authorize()
+        {
+            var claims = new ClaimsPrincipal(User).Claims.ToArray();
+            var identity = new ClaimsIdentity(claims, "Bearer");
+            AuthenticationManager.SignIn(identity);
+            return new EmptyResult();
         }
 
         //
