@@ -17,7 +17,14 @@ namespace ProjektASP.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            Category category = new Category();
+            category.Id = 0;
+            category.Name = "Brak";
+            var categories = db.Categories.ToList();
+            categories.Insert(0, category);
+            ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
+
+            return View(categories);
         }
 
         // GET: Categories/Details/5
@@ -46,7 +53,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +85,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {

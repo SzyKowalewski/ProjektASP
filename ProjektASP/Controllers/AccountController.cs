@@ -164,12 +164,15 @@ namespace ProjektASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var address = new AddressModel { ZipCode = model.ZipCode, City = model.City, StreetAndBuildingNumber = model.StreetAndBuildingNumber, ApartmentNumber = model.ApartmentNumber };
+                db.AddressModels.Add(address);
+                db.SaveChanges();
+                var user = new ApplicationUser { UserName = model.Email, AddressId = address.Id, Email = model.Email, Name = model.Name, Surrname = model.Surrname };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -181,7 +184,7 @@ namespace ProjektASP.Controllers
                 AddErrors(result);
             }
 
-            // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
+            // Jeśli dotarliśmy tak daleko, oznacza to, że wystąpił błąd. Wyświetl ponownie formularz
             return View(model);
         }
 

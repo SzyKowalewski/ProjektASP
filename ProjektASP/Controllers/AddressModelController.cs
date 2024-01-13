@@ -10,7 +10,7 @@ using ProjektASP.Models;
 
 namespace ProjektASP.Controllers
 {
-    public class AddressModelsController : Controller
+    public class AddressModelController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -27,7 +27,7 @@ namespace ProjektASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AddressModels addressModels = db.AddressModels.Find(id);
+            AddressModel addressModels = db.AddressModels.Find(id);
             if (addressModels == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ZipCode,City,StreetAndBuildingNumber,ApartmentNumber")] AddressModels addressModels)
+        public ActionResult Create([Bind(Include = "Id,ZipCode,City,StreetAndBuildingNumber,ApartmentNumber")] AddressModel addressModels)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace ProjektASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AddressModels addressModels = db.AddressModels.Find(id);
+            AddressModel addressModels = db.AddressModels.Find(id);
             if (addressModels == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ZipCode,City,StreetAndBuildingNumber,ApartmentNumber")] AddressModels addressModels)
+        public ActionResult Edit([Bind(Include = "Id,ZipCode,City,StreetAndBuildingNumber,ApartmentNumber")] AddressModel addressModels)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace ProjektASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AddressModels addressModels = db.AddressModels.Find(id);
+            AddressModel addressModels = db.AddressModels.Find(id);
             if (addressModels == null)
             {
                 return HttpNotFound();
@@ -109,7 +109,7 @@ namespace ProjektASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AddressModels addressModels = db.AddressModels.Find(id);
+            AddressModel addressModels = db.AddressModels.Find(id);
             db.AddressModels.Remove(addressModels);
             db.SaveChanges();
             return RedirectToAction("Index");

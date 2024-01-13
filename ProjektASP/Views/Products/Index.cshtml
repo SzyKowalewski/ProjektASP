@@ -24,6 +24,9 @@
             @Html.DisplayNameFor(model => model.Avaliable)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
         </th>
         <th></th>
@@ -44,12 +47,15 @@
             @Html.DisplayFor(modelItem => item.Avaliable)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ImageUrl)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

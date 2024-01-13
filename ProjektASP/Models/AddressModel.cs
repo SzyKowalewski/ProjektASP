@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ProjektASP.Models
 {
-    public class AddressModels
+    public class AddressModel
     {
         public int Id { get; set; }
         [MaxLength(6)]

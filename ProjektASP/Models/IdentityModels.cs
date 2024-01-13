@@ -18,15 +18,15 @@ namespace ProjektASP.Models
             // Dodaj tutaj niestandardowe oświadczenia użytkownika
             return userIdentity;
         }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surrname { get; set; }
+
+        public int AddressId { get; set; }
+
+        public virtual AddressModel Address { get; set; }
     }
-
-    public string Name { get; set; }
-    [Required]
-    public string Surrname { get; set; }
-
-    public int AddressId { get; set; }
-
-    public virtual AddressModel Address { get; set; }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -40,13 +40,12 @@ namespace ProjektASP.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<AddressModel> Addresses { get; set; }
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<AddressModels> AddressModels { get; set; }
+        public DbSet<AddressModel> AddressModels { get; set; }
     }
 }

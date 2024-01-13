@@ -23,6 +23,7 @@ namespace ProjektASP.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -32,12 +33,22 @@ namespace ProjektASP.Controllers
             {
                 return HttpNotFound();
             }
+            var photo = db.Products.FirstOrDefault();
+            if (photo != null)
+                ViewBag.Image = photo.ImageUrl;
+
             return View(product);
         }
 
         // GET: Products/Create
         public ActionResult Create()
         {
+            Category category = new Category();
+            category.Id = 0;
+            category.Name = "Brak";
+            var categories = db.Categories.ToList();
+            categories.Insert(0, category);
+            ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
             return View();
         }
 
@@ -46,7 +57,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Avaliable,ImageUrl")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,CategoryId,Description,Price,Avaliable,ImageUrl")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +65,7 @@ namespace ProjektASP.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -70,6 +81,12 @@ namespace ProjektASP.Controllers
             {
                 return HttpNotFound();
             }
+            Category category = new Category();
+            category.Id = 0;
+            category.Name = "Brak";
+            var categories = db.Categories.ToList();
+            categories.Insert(0, category);
+            ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -78,7 +95,7 @@ namespace ProjektASP.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Avaliable,ImageUrl")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,CategoryId,Description,Price,Avaliable,ImageUrl")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +103,13 @@ namespace ProjektASP.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            Category category = new Category();
+            category.Id = 0;
+            category.Name = "Brak";
+            var categories = db.Categories.ToList();
+            categories.Insert(0, category);
+            ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 

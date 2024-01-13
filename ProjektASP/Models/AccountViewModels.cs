@@ -69,6 +69,13 @@ namespace ProjektASP.Models
         [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
 
+        public string Name { get; set; }
+        public string Surrname { get; set; }
+        public string ZipCode { get; set; }
+        public string City { get; set; }
+        public string StreetAndBuildingNumber { get; set; }
+        public int ApartmentNumber { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "{0} musi zawierać co najmniej następującą liczbę znaków: {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
