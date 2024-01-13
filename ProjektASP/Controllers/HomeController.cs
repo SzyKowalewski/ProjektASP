@@ -21,7 +21,7 @@ namespace ProjektASP.Controllers
             categories.Insert(0, category);
             ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
 
-            var productList = db.Products.ToList();
+            var productList = db.Products.Where(s => s.Avaliable == true ).ToList();
 
             return View(productList);
         }
@@ -31,9 +31,9 @@ namespace ProjektASP.Controllers
         {
             var productList = new Object();
             if (cat.Id == 0) 
-                productList = db.Products.ToList();
+                productList = db.Products.Where(s => s.Avaliable == true).ToList();
             else 
-                productList = db.Products.Where(s => s.Category.Id == cat.Id).ToList();
+                productList = db.Products.Where(s => s.Category.Id == cat.Id).Where(s => s.Avaliable == true).ToList();
 
             Category category = new Category();
             category.Id = 0;
