@@ -18,12 +18,8 @@ namespace ProjektASP.Controllers
         public ActionResult Index()
         {
             Category category = new Category();
-            category.Id = 0;
-            category.Name = "Brak";
             var categories = db.Categories.ToList();
-            categories.Insert(0, category);
-            ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
-
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
             return View(categories);
         }
 
