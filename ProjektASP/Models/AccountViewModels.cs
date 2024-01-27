@@ -6,7 +6,7 @@ namespace ProjektASP.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
     }
 
@@ -42,14 +42,14 @@ namespace ProjektASP.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Adres e-mail")]
         [EmailAddress]
         public string Email { get; set; }
 

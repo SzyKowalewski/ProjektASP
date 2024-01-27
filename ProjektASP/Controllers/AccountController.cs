@@ -60,7 +60,7 @@ namespace ProjektASP.Controllers
         public ActionResult Authorize()
         {
             var claims = new ClaimsPrincipal(User).Claims.ToArray();
-            var identity = new ClaimsIdentity(claims, "Baerer");
+            var identity = new ClaimsIdentity(claims, "Bearer");
             AuthenticationManager.SignIn(identity);
             return new EmptyResult();
         }
