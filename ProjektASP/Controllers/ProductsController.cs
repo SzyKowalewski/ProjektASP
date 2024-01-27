@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ProjektASP.Models;
 
 namespace ProjektASP.Controllers
@@ -15,12 +16,15 @@ namespace ProjektASP.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Index()
         {
             return View(db.Products.ToList());
         }
 
         // GET: Products/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             
@@ -39,7 +43,7 @@ namespace ProjektASP.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Products/Create
         public ActionResult Create()
         {
@@ -51,7 +55,7 @@ namespace ProjektASP.Controllers
             ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: Products/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -68,7 +72,7 @@ namespace ProjektASP.Controllers
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -89,7 +93,7 @@ namespace ProjektASP.Controllers
             ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: Products/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -112,7 +116,7 @@ namespace ProjektASP.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -127,7 +131,7 @@ namespace ProjektASP.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
