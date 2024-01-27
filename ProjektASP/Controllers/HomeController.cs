@@ -1,4 +1,5 @@
-﻿using ProjektASP.Models;
+﻿using Newtonsoft.Json;
+using ProjektASP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,59 @@ namespace ProjektASP.Controllers
             {
                 return HttpNotFound();
             }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult Details(int? id, int? pusty)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            var productid = Convert.ToString(product.Id);
+
+            List<KeyValuePair<string, int>> itemsInCart;
+            HttpCookie cookie = Request.Cookies["CartCookie"];
+
+
+            if (cookie != null)
+            {
+                string existingCart = cookie.Value.ToString();
+                itemsInCart = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(existingCart);
+            }
+            else
+            {
+                cookie = new HttpCookie("CartCookie");
+                itemsInCart = new List<KeyValuePair<string, int>>();
+            }
+
+            bool productFound = false;
+            for (int i = 0; i < itemsInCart.Count; i++)
+            {
+                if (itemsInCart[i].Key == productid)
+                {
+                    itemsInCart[i] = new KeyValuePair<string, int>(itemsInCart[i].Key, itemsInCart[i].Value + 1);
+                    productFound = true;
+                    break;
+                }
+            }
+
+            if (!productFound)
+            {
+                itemsInCart.Add(new KeyValuePair<string, int>(productid, 1));
+            }
+
+            string cartData = JsonConvert.SerializeObject(itemsInCart);
+            cookie.Value = cartData;
+            Response.Cookies.Add(cookie);
 
             return View(product);
         }

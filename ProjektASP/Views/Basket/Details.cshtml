@@ -1,0 +1,39 @@
+﻿@model ProjektASP.Models.Product
+@{
+    ViewBag.Title = "Details";
+}
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Zdjęcie:
+        </dt>
+        <td>
+            <img src="@ViewBag.Image" width="150px" height="100px" />
+        </td>
+
+        <dt>
+            Cena:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            Opis ogłoszenia:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Wróć do koszyka", "BasketView")
+</p>
