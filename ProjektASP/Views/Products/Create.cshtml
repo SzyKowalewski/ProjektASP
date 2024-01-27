@@ -2,19 +2,21 @@
 
 @{
     ViewBag.Title = "Create";
+    int counter2 = 0;
 }
 
 <h2>Create</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+     
 <div class="form-horizontal">
     <h4>Product</h4>
     <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="form-group">
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -63,6 +65,39 @@
             <input type="file" name="ImageFile" />
         </div>
     </div>
+
+    <div class="form-group" id="attachedFilesContainer">
+        <label for="AttachedFiles">Załączone pliki:</label>
+        <br />
+
+        @for (int i = 0; i < 2; i++)
+        {
+            <div>
+                <input type="file" name="AttachedFiles[@i]" />
+                <input type="text" name="FileDescriptions[@i]" placeholder="Opis dla pliku" />
+            </div>
+        }
+
+
+    </div>
+
+    <button type="button" id="addFileButton">Dodaj kolejny plik</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    var counter = @((Model?.AttachedFiles?.Count ?? 0) + 1); // Ustalenie początkowej wartości licznika
+
+    $("#addFileButton").click(function () {
+        var fileInput = $("<input>").attr({ type: 'file', name: 'AttachedFiles[' + counter + ']' });
+        var descriptionInput = $("<input>").attr({ type: 'text', name: 'FileDescriptions[' + counter + ']', placeholder: 'Opis dla pliku' });
+
+        var divContainer = $("<div></div>").append(fileInput).append(descriptionInput);
+
+        $("#attachedFilesContainer").append(divContainer);
+        counter++;
+    });
+        counter2 = counter;
+    </script>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -16,6 +16,7 @@ namespace ProjektASP.Models
         public virtual Category Category { get; set; }
         public double Price { get; set; }
         public bool Avaliable { get; set; }
+        public virtual ICollection<AttachedFile> AttachedFiles { get; set; }
 
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }

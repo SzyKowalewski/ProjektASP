@@ -55,8 +55,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Url.Content("~/")@Model.ImageUrl" alt="Product Image" />
+            }
+            else
+            {
+                <p>No image available</p>
+            }
 
     </dl>
 </div>

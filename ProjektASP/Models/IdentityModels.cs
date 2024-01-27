@@ -47,5 +47,7 @@ namespace ProjektASP.Models
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<AddressModel> AddressModels { get; set; }
+
+        public System.Data.Entity.DbSet<ProjektASP.Models.AttachedFile> AttachedFiles { get; set; }
     }
 }

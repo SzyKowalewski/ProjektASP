@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -10,114 +10,112 @@ using ProjektASP.Models;
 
 namespace ProjektASP.Controllers
 {
-    public class CategoriesController : Controller
+    public class AttachedFilesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Categories
+        // GET: AttachedFiles
         public ActionResult Index()
         {
-            Category category = new Category();
-            category.Id = 0;
-            category.Name = "Brak";
-            var categories = db.Categories.ToList();
-            categories.Insert(0, category);
-            ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
-
-            return View(categories);
+            var attachedFiles = db.AttachedFiles.Include(a => a.Product);
+            return View(attachedFiles.ToList());
         }
 
-        // GET: Categories/Details/5
+        // GET: AttachedFiles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            AttachedFile attachedFile = db.AttachedFiles.Find(id);
+            if (attachedFile == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(attachedFile);
         }
 
-        // GET: Categories/Create
+        // GET: AttachedFiles/Create
         public ActionResult Create()
         {
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: AttachedFiles/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,FileName,Description,ProductId")] AttachedFile attachedFile)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                db.AttachedFiles.Add(attachedFile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", attachedFile.ProductId);
+            return View(attachedFile);
         }
 
-        // GET: Categories/Edit/5
+        // GET: AttachedFiles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            AttachedFile attachedFile = db.AttachedFiles.Find(id);
+            if (attachedFile == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", attachedFile.ProductId);
+            return View(attachedFile);
         }
 
-        // POST: Categories/Edit/5
+        // POST: AttachedFiles/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,FileName,Description,ProductId")] AttachedFile attachedFile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(attachedFile).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", attachedFile.ProductId);
+            return View(attachedFile);
         }
 
-        // GET: Categories/Delete/5
+        // GET: AttachedFiles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            AttachedFile attachedFile = db.AttachedFiles.Find(id);
+            if (attachedFile == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(attachedFile);
         }
 
-        // POST: Categories/Delete/5
+        // POST: AttachedFiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            AttachedFile attachedFile = db.AttachedFiles.Find(id);
+            db.AttachedFiles.Remove(attachedFile);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

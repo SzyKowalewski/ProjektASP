@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressModelController.cs" />
+    <Compile Include="Controllers\AttachedFilesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -210,9 +211,14 @@
     <Compile Include="Migrations\202401122112219_4.designer.cs">
       <DependentUpon>202401122112219_4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401211929045_Produktuopdate2.cs" />
+    <Compile Include="Migrations\202401211929045_Produktuopdate2.designer.cs">
+      <DependentUpon>202401211929045_Produktuopdate2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AttachedFile.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -245,6 +251,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ImageUrl\TV1.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -316,6 +323,11 @@
     <Content Include="Views\AddressModel\Details.cshtml" />
     <Content Include="Views\AddressModel\Edit.cshtml" />
     <Content Include="Views\AddressModel\Index.cshtml" />
+    <Content Include="Views\AttachedFiles\Create.cshtml" />
+    <Content Include="Views\AttachedFiles\Delete.cshtml" />
+    <Content Include="Views\AttachedFiles\Details.cshtml" />
+    <Content Include="Views\AttachedFiles\Edit.cshtml" />
+    <Content Include="Views\AttachedFiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202312182154473_InitialCreate.resx">
@@ -341,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401122112219_4.resx">
       <DependentUpon>202401122112219_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401211929045_Produktuopdate2.resx">
+      <DependentUpon>202401211929045_Produktuopdate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +385,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
