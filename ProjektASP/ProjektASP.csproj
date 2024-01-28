@@ -170,10 +170,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressModelController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\AttachedFilesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -217,6 +219,26 @@
     <Compile Include="Migrations\202401211929045_Produktuopdate2.designer.cs">
       <DependentUpon>202401211929045_Produktuopdate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401271939557_migration10.cs" />
+    <Compile Include="Migrations\202401271939557_migration10.designer.cs">
+      <DependentUpon>202401271939557_migration10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401281731415_migration11.cs" />
+    <Compile Include="Migrations\202401281731415_migration11.designer.cs">
+      <DependentUpon>202401281731415_migration11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401281750332_migra.cs" />
+    <Compile Include="Migrations\202401281750332_migra.designer.cs">
+      <DependentUpon>202401281750332_migra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401282000386_migration12.cs" />
+    <Compile Include="Migrations\202401282000386_migration12.designer.cs">
+      <DependentUpon>202401282000386_migration12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401282011520_migration13.cs" />
+    <Compile Include="Migrations\202401282011520_migration13.designer.cs">
+      <DependentUpon>202401282011520_migration13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddressModel.cs" />
@@ -224,6 +246,7 @@
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
@@ -334,6 +357,12 @@
     <Content Include="Views\Basket\BasketView.cshtml" />
     <Content Include="Views\Basket\Details.cshtml" />
     <Content Include="Views\Basket\Order.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Images\Create.cshtml" />
+    <Content Include="Views\Images\Delete.cshtml" />
+    <Content Include="Views\Images\Details.cshtml" />
+    <Content Include="Views\Images\Edit.cshtml" />
+    <Content Include="Views\Images\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202312182154473_InitialCreate.resx">
@@ -362,6 +391,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401211929045_Produktuopdate2.resx">
       <DependentUpon>202401211929045_Produktuopdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401271939557_migration10.resx">
+      <DependentUpon>202401271939557_migration10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401281731415_migration11.resx">
+      <DependentUpon>202401281731415_migration11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401281750332_migra.resx">
+      <DependentUpon>202401281750332_migra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401282000386_migration12.resx">
+      <DependentUpon>202401282000386_migration12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401282011520_migration13.resx">
+      <DependentUpon>202401282011520_migration13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +436,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FileUrl\" />
     <Folder Include="Views\Role\" />
   </ItemGroup>
   <PropertyGroup>

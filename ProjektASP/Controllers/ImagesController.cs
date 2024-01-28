@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -10,129 +10,112 @@ using ProjektASP.Models;
 
 namespace ProjektASP.Controllers
 {
-    public class CategoriesController : Controller
+    public class ImagesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        [Authorize(Roles = "Admin")]
-        // GET: Categories
+
+        // GET: Images
         public ActionResult Index()
         {
-            Category category = new Category();
-            var categories = db.Categories.ToList();
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            return View(categories);
+            var images = db.Images.Include(i => i.Product);
+            return View(images.ToList());
         }
-        [Authorize(Roles = "Admin")]
-        // GET: Categories/Details/5
+
+        // GET: Images/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Image image = db.Images.Find(id);
+            if (image == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(image);
         }
-        [Authorize(Roles = "Admin")]
-        // GET: Categories/Create
+
+        // GET: Images/Create
         public ActionResult Create()
         {
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             return View();
         }
-        [Authorize(Roles = "Admin")]
-        // POST: Categories/Create
+
+        // POST: Images/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,ImageName,ProductId,ImagePath")] Image image)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                db.Images.Add(image);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", image.ProductId);
+            return View(image);
         }
-        [HttpPost]
-        public ActionResult UpdateVisibility(List<Category> categories)
-        {
-            if (ModelState.IsValid)
-            {
-                foreach (var category in categories)
-                {
-                    var existingCategory = db.Categories.Find(category.Id);
-                    if (existingCategory != null)
-                    {
-                        existingCategory.isVisible = category.isVisible;
-                    }
-                }
 
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-        [Authorize(Roles = "Admin")]
-        // GET: Categories/Edit/5
+        // GET: Images/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Image image = db.Images.Find(id);
+            if (image == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", image.ProductId);
+            return View(image);
         }
-        [Authorize(Roles = "Admin")]
-        // POST: Categories/Edit/5
+
+        // POST: Images/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,ImageName,ProductId,ImagePath")] Image image)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(image).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", image.ProductId);
+            return View(image);
         }
-        [Authorize(Roles = "Admin")]
-        // GET: Categories/Delete/5
+
+        // GET: Images/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Image image = db.Images.Find(id);
+            if (image == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(image);
         }
-        [Authorize(Roles = "Admin")]
-        // POST: Categories/Delete/5
+
+        // POST: Images/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            Image image = db.Images.Find(id);
+            db.Images.Remove(image);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

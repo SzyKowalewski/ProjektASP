@@ -51,6 +51,8 @@ namespace ProjektASP.Models
         public DbSet<AddressModel> AddressModels { get; set; }
 
         public System.Data.Entity.DbSet<ProjektASP.Models.AttachedFile> AttachedFiles { get; set; }
+
+        public System.Data.Entity.DbSet<ProjektASP.Models.Image> Images { get; set; }
     }
     public class IdentityManager
     {

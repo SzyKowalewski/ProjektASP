@@ -18,11 +18,11 @@ namespace ProjektASP.Models
         public bool Avaliable { get; set; }
         public virtual ICollection<AttachedFile> AttachedFiles { get; set; }
 
-        [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
-
         [NotMapped]
         [Display(Name = "Upload Image")]
         public HttpPostedFileBase ImageFile { get; set; }
+
+        // Nowa kolekcja zdjęć
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

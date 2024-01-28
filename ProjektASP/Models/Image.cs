@@ -5,13 +5,12 @@ using System.Web;
 
 namespace ProjektASP.Models
 {
-    public class AttachedFile
+    public class Image
     {
         public int Id { get; set; }
-        public string FileName { get; set; }
-        public string Description { get; set; }
+        public string ImageName { get; set; }
         public int ProductId { get; set; }
-        public string FilePath { get; set; }
+        public string ImagePath { get; set; }
         public virtual Product Product { get; set; }
     }
 }
