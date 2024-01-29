@@ -7,6 +7,15 @@
 <h2>Ogłoszenia</h2>
 
 <form class="form-group" method="post">
+    @using (Html.BeginForm("Search", "Products", FormMethod.Get))
+    {
+        <div class="input-group">
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Szukaj produktu..." })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-secondary">Szukaj</button>
+            </span>
+        </div>
+    }
     <div class="row">
         <label for="Id" class="col-md-1 control-label">Kategoria</label>
         <div class="col-md-3">
@@ -19,11 +28,22 @@
 </form>
 <br />
 
+@{
+    if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Przejdź do panelu administratora", "Index", "Admin", new { area = "" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+}
+
 
 <table class="table">
     <tr>
         <th>
-            Nazwa 
+            Nazwa
         </th>
         <th>
             Cena [zł]

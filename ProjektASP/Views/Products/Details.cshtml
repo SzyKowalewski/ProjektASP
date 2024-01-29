@@ -53,11 +53,47 @@
         <dt>
             Zdjęcie
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <ul>
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <img src="@Url.Content(image.ImagePath)" alt="Product Image" />
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No images</p>
+            }
         </dd>
 
+        <dt>
+            Załączone pliki
+        </dt>
+        <dd>
+            @if (Model.AttachedFiles != null && Model.AttachedFiles.Any())
+            {
+                <ul>
+                    @foreach (var attachedFile in Model.AttachedFiles)
+                    {
+                        <li>
+                            Nazwa pliku: @attachedFile.FileName<br />
+                            Opis: @attachedFile.Description
+                            <br />
+                            @Html.ActionLink("Pobierz", "DownloadFile", new { id = attachedFile.Id })
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No attached files</p>
+            }
+        </dd>
     </dl>
 </div>
 <p>

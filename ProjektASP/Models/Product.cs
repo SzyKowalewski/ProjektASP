@@ -16,12 +16,13 @@ namespace ProjektASP.Models
         public virtual Category Category { get; set; }
         public double Price { get; set; }
         public bool Avaliable { get; set; }
-
-        [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
+        public virtual ICollection<AttachedFile> AttachedFiles { get; set; }
 
         [NotMapped]
         [Display(Name = "Upload Image")]
         public HttpPostedFileBase ImageFile { get; set; }
+
+        // Nowa kolekcja zdjęć
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

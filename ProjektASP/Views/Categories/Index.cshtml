@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjektASP.Models.Category>
+﻿@model List<ProjektASP.Models.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -6,28 +6,41 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm("UpdateVisibility", "Categories", FormMethod.Post))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].isVisible)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Name)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => Model[i].isVisible)
+                    @Html.HiddenFor(modelItem => Model[i].Id) <!-- Dodajemy ukryte pole z ID -->
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model[i].Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = Model[i].Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = Model[i].Id })
+                </td>
+            </tr>
+        }
+
+        <input type="submit" value="Save Changes" class="btn btn-primary" />
+    </table>
 }
 
-</table>

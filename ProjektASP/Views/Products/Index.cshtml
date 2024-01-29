@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Category)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.Images)
         </th>
         <th></th>
     </tr>
@@ -50,7 +50,15 @@
             @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
+            @if (item.Images != null && item.Images.Any())
+            {
+                var firstImage = item.Images.First(); // Pobierz pierwsze zdjęcie
+                <img src="@firstImage.ImagePath" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
+            }
+            else
+            {
+                <p>No images</p>
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

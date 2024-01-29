@@ -9,5 +9,6 @@ namespace ProjektASP.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool isVisible { get; set; }
     }
 }
